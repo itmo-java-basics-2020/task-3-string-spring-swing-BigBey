@@ -95,7 +95,7 @@ public class Task3 {
      * где группы одинаковых символов заменены на один символ и кол-во этих символов идущих подряд в строке
      */
     String getEncodedString(String input) {
-        String result = "";
+        StringBuilder builder = new StringBuilder();
         if(input == null || input.length() == 0)
             return "";
         else {
@@ -105,14 +105,14 @@ public class Task3 {
                 if (input.charAt(i) == currentSymbol)
                     count++;
                 else {
-                    result += currentSymbol + "" + count;
+                    builder.append(currentSymbol).append(count);
                     currentSymbol = input.charAt(i);
                     count = 1;
                 }
             }
-            result += currentSymbol + "" + count;
+            builder.append(currentSymbol).append(count);
         }
-        return result;
+        return builder.toString();
     }
 
     /**
@@ -166,21 +166,23 @@ public class Task3 {
      * Если входной массив == null - вернуть пустой массив
      */
     int[][] matrixTranspose(int[][] m) {
-        try{
-            if(m.length == 0)
-                return new int[][]{};
-            else {
+        try {
+            if (m.length == 0) {
+                return new int[][]{{}, {}};
+            } else {
                 int[][] result = new int[m.length][m.length];
                 for (int i = 0; i < m.length; i++) {
-                    for (int j = 0; j < m.length; j++)
-                        result[i][j] = m[j][i];
+                    if (m[i].length == m.length) {
+                        for (int j = 0; j < m.length; j++)
+                            result[i][j] = m[j][i];
+                    } else {
+                        return new int[][]{{}, {}};
+                    }
                 }
                 return result;
             }
-        }catch (NullPointerException e){
-            return new int[][]{{},{}};
-        }catch (IndexOutOfBoundsException e){
-            return m;
+        } catch (NullPointerException e) {
+            return new int[][]{{}, {}};
         }
     }
 
@@ -195,9 +197,9 @@ public class Task3 {
      */
     String concatWithSeparator(String[] inputStrings, Character separator) {
         try{
-            String result = "";
+            StringBuilder builder = new StringBuilder();
             if(inputStrings.length == 0){
-                return result;
+                return "";
             }else {
                 Character localSeparator;
                 if (separator == null) {
@@ -205,10 +207,11 @@ public class Task3 {
                 } else {
                     localSeparator = separator;
                 }
-                for (int i = 0; i < inputStrings.length - 1; i++)
-                    result += inputStrings[i] + localSeparator;
-                result += inputStrings[inputStrings.length - 1];
-                return result;
+                for (int i = 0; i < inputStrings.length - 1; i++) {
+                    builder.append(inputStrings[i]).append(localSeparator);
+                }
+                builder.append(inputStrings[inputStrings.length - 1]);
+                return builder.toString();
             }
         }catch (NullPointerException e){
             return "";
