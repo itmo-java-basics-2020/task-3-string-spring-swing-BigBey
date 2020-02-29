@@ -10,7 +10,7 @@ public class Task3 {
      * Если инпут равен null - вернуть пустой массив
      */
     int[] getShiftedArray(int[] inputArray) {
-        try {
+        if (inputArray != null) {
             int[] result = new int[inputArray.length];
             if (inputArray.length == 0)
                 return new int[]{};
@@ -21,30 +21,29 @@ public class Task3 {
                 result[0] = inputArray[inputArray.length - 1];
             }
             return result;
-        }catch (NullPointerException e) {
+        } else
             return new int[]{};
-        }
     }
 
     /**
      * Напишите функцию, которая принимает массив целых чисел и возвращает максимальное значение произведения двух его элементов.
      * Если массив состоит из одного элемента, то функция возвращает этот элемент.
-     *
+     * <p>
      * Если входной массив пуст или равен null - вернуть 0
-     *
+     * <p>
      * Пример: 2 4 6 -> 24
      */
     int getMaxProduct(int[] inputArray) {
-        if( inputArray == null || inputArray.length == 0)
+        if (inputArray == null || inputArray.length == 0)
             return 0;
-        else if ( inputArray.length == 1)
+        else if (inputArray.length == 1)
             return inputArray[0];
-        else{
+        else {
             int max = Integer.MIN_VALUE;
-            for(int i = 0; i < inputArray.length; i++)
-                for(int j = 0; j < inputArray.length; j++)
-                    if(inputArray[i]*inputArray[j] > max && i != j)
-                        max = inputArray[i]*inputArray[j];
+            for (int i = 0; i < inputArray.length; i++)
+                for (int j = 0; j < inputArray.length; j++)
+                    if (inputArray[i] * inputArray[j] > max && i != j)
+                        max = inputArray[i] * inputArray[j];
             return max;
         }
 
@@ -54,11 +53,11 @@ public class Task3 {
      * Напишите функцию, которая вычисляет процент символов 'A' и 'B' (латиница) во входной строке.
      * Функция не должна быть чувствительна к регистру символов.
      * Результат округляйте путем отбрасывания дробной части.
-     *
+     * <p>
      * Пример: acbr -> 50
      */
     int getABpercentage(String input) {
-        if(input == null || input.equals(""))
+        if (input == null || input.equals(""))
             return 0;
         else {
             String lowerCase = input.toLowerCase();
@@ -76,13 +75,13 @@ public class Task3 {
      */
     boolean isPalindrome(String input) {
         boolean result = false;
-        if(input == null)
+        if (input == null)
             return false;
         else if (input.equals(""))
             return true;
         else
-            for(int i = 0; i < input.length()/2; i++){
-                if(input.charAt(i) == input.charAt(input.length()-1-i))
+            for (int i = 0; i < input.length() / 2; i++) {
+                if (input.charAt(i) == input.charAt(input.length() - 1 - i))
                     result = true;
                 else
                     result = false;
@@ -96,7 +95,7 @@ public class Task3 {
      */
     String getEncodedString(String input) {
         StringBuilder builder = new StringBuilder();
-        if(input == null || input.length() == 0)
+        if (input == null || input.length() == 0)
             return "";
         else {
             char currentSymbol = input.charAt(0);
@@ -123,7 +122,7 @@ public class Task3 {
      * isPermutation("abc", "Abc") == false;
      */
     boolean isPermutation(String one, String two) {
-        try {
+        if (one != null && two != null) {
             HashMap<Character, Character> first = new HashMap<>();
             HashMap<Character, Character> second = new HashMap<>();
             if (one.length() != two.length() || one.equals("") || two.equals(""))
@@ -135,9 +134,8 @@ public class Task3 {
                 }
                 return first.equals(second);
             }
-        }catch (NullPointerException e){
+        } else
             return false;
-        }
     }
 
     /**
@@ -146,8 +144,8 @@ public class Task3 {
      * Строкой является последовательность символов длинной N, где N > 0
      */
     boolean isUniqueString(String s) {
-        try {
-            if(s.equals(""))
+        if (s != null) {
+            if (s.equals(""))
                 return false;
             else {
                 HashMap<Character, Character> symbols = new HashMap<>();
@@ -155,18 +153,17 @@ public class Task3 {
                     symbols.put(s.charAt(i), s.charAt(i));
                 return s.length() == symbols.size();
             }
-        }catch (NullPointerException e){
+        } else
             return false;
-        }
     }
 
     /**
      * Напишите функцию, которая транспонирует матрицу. Только квадратные могут быть на входе.
-     *
+     * <p>
      * Если входной массив == null - вернуть пустой массив
      */
     int[][] matrixTranspose(int[][] m) {
-        try {
+        if (m != null) {
             if (m.length == 0) {
                 return new int[][]{{}, {}};
             } else {
@@ -181,26 +178,25 @@ public class Task3 {
                 }
                 return result;
             }
-        } catch (NullPointerException e) {
+        } else
             return new int[][]{{}, {}};
-        }
     }
 
     /**
      * Напиишите функцию, принимающую массив строк и символ-разделитель,
      * а возвращает одну строку состоящую из строк, разделенных сепаратором.
-     *
+     * <p>
      * Запрещается пользоваться функций join
-     *
+     * <p>
      * Если сепаратор == null - считайте, что он равен ' '
      * Если исходный массив == null -  вернуть пустую строку
      */
     String concatWithSeparator(String[] inputStrings, Character separator) {
-        try{
+        if(inputStrings != null) {
             StringBuilder builder = new StringBuilder();
-            if(inputStrings.length == 0){
+            if (inputStrings.length == 0) {
                 return "";
-            }else {
+            } else {
                 Character localSeparator;
                 if (separator == null) {
                     localSeparator = ' ';
@@ -213,28 +209,26 @@ public class Task3 {
                 builder.append(inputStrings[inputStrings.length - 1]);
                 return builder.toString();
             }
-        }catch (NullPointerException e){
+        }else
             return "";
-        }
     }
 
     /**
      * Напишите функцию, принимающую массив строк и строку-перфикс и возвращающую кол-во строк массива с данным префиксом
      */
     int getStringsStartWithPrefix(String[] inputStrings, String prefix) {
-        try {
-            if(inputStrings.length == 0)
+        if(inputStrings != null && prefix != null) {
+            if (inputStrings.length == 0)
                 return 0;
-            else{
+            else {
                 int count = 0;
-                for(int i = 0; i < inputStrings.length; i++) {
+                for (int i = 0; i < inputStrings.length; i++) {
                     if (inputStrings[i].startsWith(prefix))
                         count++;
                 }
                 return count;
             }
-        }catch (NullPointerException e){
+        }else
             return 0;
-        }
     }
 }
